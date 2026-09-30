@@ -209,7 +209,7 @@
                                 </div>
 
                                 <div class="product-card-actions">
-                                    <a href="{{ url('/products/' . $product->slug) }}" class="btn btn-outline btn-block">
+                                    <a href="{{ route('products.show', $product->slug) }}" class="btn btn-outline btn-block">
                                         View Product
                                     </a>
                                 </div>
