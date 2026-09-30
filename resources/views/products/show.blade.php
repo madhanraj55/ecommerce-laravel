@@ -3,7 +3,7 @@
 @section('title', e($product->name) . ' | ' . config('app.name', 'NovaStore'))
 
 @section('content')
-<div class="product-details-page">
+<div class="product-details-page py-12">
     <div class="container">
         <!-- Breadcrumbs & Navigation -->
         <nav class="breadcrumb-nav" aria-label="Breadcrumb">
@@ -15,10 +15,10 @@
                 Home
             </a>
             <span class="breadcrumb-separator">/</span>
-            <a href="{{ url('/products') }}" class="breadcrumb-link">Products</a>
+            <a href="{{ route('products.index') }}" class="breadcrumb-link">Products</a>
             <span class="breadcrumb-separator">/</span>
             @if($product->category)
-                <a href="{{ url('/categories/' . $product->category->slug) }}" class="breadcrumb-link">{{ $product->category->name }}</a>
+                <a href="{{ route('categories.show', $product->category->slug) }}" class="breadcrumb-link">{{ $product->category->name }}</a>
                 <span class="breadcrumb-separator">/</span>
             @endif
             <span class="breadcrumb-current">{{ $product->name }}</span>
@@ -50,7 +50,7 @@
             <!-- Product Purchase & Details Column -->
             <div class="product-summary">
                 @if($product->category)
-                    <a href="{{ url('/categories/' . $product->category->slug) }}" class="product-summary-category">
+                    <a href="{{ route('categories.show', $product->category->slug) }}" class="product-summary-category">
                         {{ $product->category->name }}
                     </a>
                 @endif
@@ -60,13 +60,13 @@
                 <!-- Pricing Section -->
                 <div class="product-summary-pricing">
                     @if($product->sale_price && $product->sale_price < $product->price)
-                        <span class="product-summary-price-sale">${{ number_format($product->sale_price, 2) }}</span>
-                        <span class="product-summary-price-old">${{ number_format($product->price, 2) }}</span>
+                        <span class="product-summary-price-sale">₹{{ number_format($product->sale_price, 2) }}</span>
+                        <span class="product-summary-price-old">₹{{ number_format($product->price, 2) }}</span>
                         <span class="product-discount-tag">
                             Save {{ round((($product->price - $product->sale_price) / $product->price) * 100) }}%
                         </span>
                     @else
-                        <span class="product-summary-price">${{ number_format($product->price, 2) }}</span>
+                        <span class="product-summary-price">₹{{ number_format($product->price, 2) }}</span>
                     @endif
                 </div>
 
@@ -96,44 +96,44 @@
                 <!-- Purchase / Cart Action Form -->
                 <div class="product-actions-card">
                     @if($product->stock > 0)
-                        <div class="quantity-control-group">
-                            <label for="quantityInput" class="quantity-label">Quantity:</label>
-                            <div class="quantity-picker">
-                                <button type="button" class="qty-btn" id="qtyMinus" aria-label="Decrease quantity">-</button>
-                                <input 
-                                    type="number" 
-                                    id="quantityInput" 
-                                    name="quantity" 
-                                    value="1" 
-                                    min="1" 
-                                    max="{{ $product->stock }}" 
-                                    class="qty-input"
-                                    readonly
-                                >
-                                <button type="button" class="qty-btn" id="qtyPlus" aria-label="Increase quantity">+</button>
-                            </div>
-                        </div>
+                        <form action="{{ route('cart.add', $product) }}" method="POST" id="addToCartForm" class="product-purchase-form">
+                            @csrf
+                            <div class="product-action-row">
+                                <div class="quantity-picker">
+                                    <button type="button" class="qty-btn" id="qtyMinus" aria-label="Decrease quantity">-</button>
+                                    <input 
+                                        type="number" 
+                                        id="quantityInput" 
+                                        name="quantity" 
+                                        value="1" 
+                                        min="1" 
+                                        max="{{ $product->stock }}" 
+                                        class="qty-input"
+                                        readonly
+                                    >
+                                    <button type="button" class="qty-btn" id="qtyPlus" aria-label="Increase quantity">+</button>
+                                </div>
 
-                        <div class="product-cta-group">
-                            <button type="button" class="btn btn-primary btn-lg btn-block add-to-cart-btn" data-product-id="{{ $product->id }}">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="9" cy="21" r="1"></circle>
-                                    <circle cx="20" cy="21" r="1"></circle>
-                                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-                                </svg>
-                                Add to Cart
-                            </button>
-                        </div>
+                                <button type="submit" class="btn btn-primary add-to-cart-btn">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="1"></circle>
+                                        <circle cx="20" cy="21" r="1"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                    </svg>
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </form>
                     @else
-                        <div class="product-cta-group">
-                            <button type="button" class="btn btn-outline btn-lg btn-block" disabled style="opacity: 0.6; cursor: not-allowed;">
+                        <div class="product-action-row">
+                            <button type="button" class="btn btn-outline btn-block" disabled style="opacity: 0.6; cursor: not-allowed;">
                                 Out of Stock
                             </button>
                         </div>
                     @endif
 
                     <div class="product-back-nav">
-                        <a href="{{ url('/products') }}" class="back-link">
+                        <a href="{{ route('products.index') }}" class="back-link">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="19" y1="12" x2="5" y2="12"></line>
                                 <polyline points="12 19 5 12 12 5"></polyline>
@@ -148,7 +148,7 @@
                     <div class="perk-item">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="1" y="3" width="15" height="13"></rect>
-                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                            <polygon points="16 8 20 8 23 11 23 16 16 16 8"></polygon>
                             <circle cx="5.5" cy="18.5" r="2.5"></circle>
                             <circle cx="18.5" cy="18.5" r="2.5"></circle>
                         </svg>
@@ -163,6 +163,72 @@
                 </div>
             </div>
         </div>
+
+        <!-- Remaining / Related Products Section -->
+        @if(isset($remainingProducts) && $remainingProducts->isNotEmpty())
+            <div class="related-products-section" style="margin-top: 4rem; padding-top: 3rem; border-top: 1px solid var(--border-color);">
+                <div class="section-header">
+                    <div>
+                        <h2 class="section-title">More Products You Might Like</h2>
+                        <p class="section-subtitle">Explore other quality items from our catalog</p>
+                    </div>
+                    <a href="{{ route('products.index') }}" class="section-link">
+                        View All Products &rarr;
+                    </a>
+                </div>
+
+                <div class="product-grid">
+                    @foreach($remainingProducts as $otherProduct)
+                        <div class="product-card">
+                            <div class="product-media">
+                                @if($otherProduct->sale_price && $otherProduct->sale_price < $otherProduct->price)
+                                    <span class="product-badge badge-sale">Sale</span>
+                                @endif
+
+                                <div class="product-stock-pill {{ $otherProduct->stock > 0 ? 'pill-in-stock' : 'pill-out-stock' }}">
+                                    {{ $otherProduct->stock > 0 ? $otherProduct->stock . ' in stock' : 'Out of stock' }}
+                                </div>
+
+                                @if($otherProduct->image)
+                                    <img src="{{ asset('storage/' . $otherProduct->image) }}" alt="{{ $otherProduct->name }}" loading="lazy">
+                                @else
+                                    <div class="product-placeholder-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                            <polyline points="21 15 16 10 5 21"></polyline>
+                                        </svg>
+                                    </div>
+                                @endif
+                            </div>
+
+                            <div class="product-info">
+                                @if($otherProduct->category)
+                                    <span class="product-category">{{ $otherProduct->category->name }}</span>
+                                @endif
+
+                                <h3 class="product-title">{{ $otherProduct->name }}</h3>
+
+                                <div class="product-pricing">
+                                    @if($otherProduct->sale_price && $otherProduct->sale_price < $otherProduct->price)
+                                        <span class="product-price">₹{{ number_format($otherProduct->sale_price, 2) }}</span>
+                                        <span class="product-sale-price">₹{{ number_format($otherProduct->price, 2) }}</span>
+                                    @else
+                                        <span class="product-price">₹{{ number_format($otherProduct->price, 2) }}</span>
+                                    @endif
+                                </div>
+
+                                <div class="product-card-actions">
+                                    <a href="{{ route('products.show', $otherProduct->slug) }}" class="btn btn-outline btn-block">
+                                        View Product
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        @endif
     </div>
 </div>
 

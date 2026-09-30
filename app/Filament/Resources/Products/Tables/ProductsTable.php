@@ -35,11 +35,11 @@ class ProductsTable
                     ->color('info'),
                 TextColumn::make('price')
                     ->label('Price')
-                    ->money()
+                    ->money('INR')
                     ->sortable(),
                 TextColumn::make('sale_price')
                     ->label('Sale Price')
-                    ->money()
+                    ->money('INR')
                     ->sortable()
                     ->placeholder('-'),
                 TextColumn::make('stock')

@@ -38,7 +38,7 @@
                         </div>
                         <div class="hero-card-details">
                             <h3>Next-Gen Wireless Headphones</h3>
-                            <div class="hero-card-price">$149.00</div>
+                            <div class="hero-card-price">₹1,499.00</div>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="feature-text">
                         <h4>Free Express Delivery</h4>
-                        <p>On all orders over $50</p>
+                        <p>On all orders over ₹499</p>
                     </div>
                 </div>
 
@@ -201,10 +201,10 @@
 
                                 <div class="product-pricing">
                                     @if($product->sale_price && $product->sale_price < $product->price)
-                                        <span class="product-price">${{ number_format($product->sale_price, 2) }}</span>
-                                        <span class="product-sale-price">${{ number_format($product->price, 2) }}</span>
+                                        <span class="product-price">₹{{ number_format($product->sale_price, 2) }}</span>
+                                        <span class="product-sale-price">₹{{ number_format($product->price, 2) }}</span>
                                     @else
-                                        <span class="product-price">${{ number_format($product->price, 2) }}</span>
+                                        <span class="product-price">₹{{ number_format($product->price, 2) }}</span>
                                     @endif
                                 </div>
 

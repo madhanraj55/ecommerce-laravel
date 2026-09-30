@@ -46,12 +46,12 @@ class ProductForm
                         TextInput::make('price')
                             ->required()
                             ->numeric()
-                            ->prefix('$')
+                            ->prefix('₹')
                             ->minValue(0),
                         TextInput::make('sale_price')
                             ->nullable()
                             ->numeric()
-                            ->prefix('$')
+                            ->prefix('₹')
                             ->minValue(0),
                         TextInput::make('stock')
                             ->required()
