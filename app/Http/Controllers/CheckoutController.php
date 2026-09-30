@@ -106,6 +106,7 @@ class CheckoutController extends Controller
 
                 // Create Order record
                 $order = Order::create([
+                    'user_id' => auth()->id(),
                     'order_number' => $orderNumber,
                     'name' => $validated['name'],
                     'email' => $validated['email'],

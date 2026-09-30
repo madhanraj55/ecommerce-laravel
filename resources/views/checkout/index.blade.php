@@ -70,7 +70,7 @@
                                 name="name" 
                                 id="name" 
                                 class="form-control @error('name') is-invalid @enderror" 
-                                value="{{ old('name') }}" 
+                                value="{{ old('name', auth()->user()->name ?? '') }}" 
                                 placeholder="e.g. Ramesh Kumar"
                                 required
                                 maxlength="255"
@@ -87,7 +87,7 @@
                                 name="email" 
                                 id="email" 
                                 class="form-control @error('email') is-invalid @enderror" 
-                                value="{{ old('email') }}" 
+                                value="{{ old('email', auth()->user()->email ?? '') }}" 
                                 placeholder="ramesh@example.com"
                                 required
                                 maxlength="255"

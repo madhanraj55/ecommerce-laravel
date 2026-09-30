@@ -44,8 +44,25 @@
                 </a>
 
                 <div class="auth-links">
-                    <a href="{{ url('/login') }}" class="btn btn-outline btn-sm">Login</a>
-                    <a href="{{ url('/register') }}" class="btn btn-primary btn-sm">Register</a>
+                    @auth
+                        <div class="user-nav-dropdown">
+                            <a href="{{ route('account.index') }}" class="user-greeting-btn" title="My Account">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="12" cy="7" r="4"></circle>
+                                </svg>
+                                <span>{{ Auth::user()->name }}</span>
+                            </a>
+                            <a href="{{ route('orders.index') }}" class="btn btn-outline btn-sm">My Orders</a>
+                            <form action="{{ route('logout') }}" method="POST" class="nav-logout-form">
+                                @csrf
+                                <button type="submit" class="btn btn-sm btn-logout" title="Sign Out">Logout</button>
+                            </form>
+                        </div>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-outline btn-sm">Login</a>
+                        <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Register</a>
+                    @endauth
                 </div>
 
                 <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle Navigation Menu" aria-expanded="false">
