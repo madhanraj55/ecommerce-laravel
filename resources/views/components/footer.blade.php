@@ -10,7 +10,7 @@
                             <path d="M16 10a4 4 0 0 1-8 0"></path>
                         </svg>
                     </div>
-                    <div class="brand-name">Nova<span>Store</span></div>
+                    <div class="brand-name">Madhan<span>Store</span></div>
                 </a>
                 <p class="footer-text">
                     Your premium destination for curated, high-quality products. Fast delivery, secure payments, and 24/7 dedicated support.
@@ -84,7 +84,7 @@
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} NovaStore Ecommerce. All rights reserved.</p>
+            <p>&copy; {{ date('Y') }} Madhan Store. All rights reserved.</p>
             <div class="footer-bottom-links">
                 <a href="#">Terms</a>
                 <a href="#">Privacy</a>

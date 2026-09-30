@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Order Placed Successfully | ' . config('app.name', 'NovaStore'))
+@section('title', 'Order Placed Successfully | ' . config('app.name', 'Madhan Store'))
 
 @section('content')
 <div class="order-success-page py-16">

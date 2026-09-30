@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', e($category->name) . ' | ' . config('app.name', 'NovaStore'))
+@section('title', e($category->name) . ' | ' . config('app.name', 'Madhan Store'))
 
 @section('content')
 <div class="category-detail-page py-12">

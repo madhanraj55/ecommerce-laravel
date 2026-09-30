@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Home - Shop Everything You Need | ' . config('app.name', 'NovaStore'))
+@section('title', 'Home - Shop Everything You Need | ' . config('app.name', 'Madhan Store'))
 
 @section('content')
     <!-- Hero Section -->

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Shopping Cart | ' . config('app.name', 'NovaStore'))
+@section('title', 'Shopping Cart | ' . config('app.name', 'Madhan Store'))
 
 @section('content')
 <div class="cart-page">

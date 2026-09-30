@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'All Categories | ' . config('app.name', 'NovaStore'))
+@section('title', 'All Categories | ' . config('app.name', 'Madhan Store'))
 
 @section('content')
 <div class="category-listing-page py-12">

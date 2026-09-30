@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', e($product->name) . ' | ' . config('app.name', 'NovaStore'))
+@section('title', e($product->name) . ' | ' . config('app.name', 'Madhan Store'))
 
 @section('content')
 <div class="product-details-page py-12">

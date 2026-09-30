@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Checkout | ' . config('app.name', 'NovaStore'))
+@section('title', 'Checkout | ' . config('app.name', 'Madhan Store'))
 
 @section('content')
 <div class="checkout-page py-12">
